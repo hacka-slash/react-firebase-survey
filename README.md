@@ -1,68 +1,19 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+..*In this tutorial we are using firebase. I might look to recreate it using MongoDB.
 
-## Available Scripts
+..*The firebase users permissions we gave are to allow any user to read or write. We said "Auth" === "null" indicating we don't need authorization. 
+    ..*However, I could not find this in the new updated firebase website. Must find how to actually give any user permissions to read and write.
+..*OVERVIEW: This app simply takes a user's name and saves the answers they give to our questions into our database. Our database has been modified to require no authentication which is usually a no-no, but for simplicity of this tutorial it was allowed. 
+ 
+ 
+ 
+ ..*To find the config key, I had to register the app, give it a nickname, then copy/paste the firebaseConfig
 
-In the project directory, you can run:
+  ..*For the input field I used ref="nameBox" and used this to get the value in the submit function. This works well but was still given an warning in the log saying "String refs are a source of potential bugs and should be avoided. Recommend using 'useRef()'
+    ..*Learn more @https://fb.me/react-strict-mode-string-ref 
 
-### `npm start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+..*Currently there is no CSS for my card
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+..*QuestionSubmit() error: As trying to submit the answers and save to my database, I am getting an error saying 'PERMISSION DENIED'. Online it is saying this is because only administrative users are allowed to read/write. Permissions/rules must be changed, although I thought this was done in the beggining of the tutorial. Will double check.
+ ..*!* SOLVED: By default, when we create a new database in Firebase, it is in 'CloudFire Store' Mode, or Beta. We must select from the dropdown to put it into 'Realtime Database' Mode, and then edit the 'Rules' to allow Read/Write:
+    ..*https://stackoverflow.com/questions/37403747/firebase-permission-denied : I was facing similar issue and found out that this error was due to incorrect rules set for read/write operations for real time database. By default google firebase nowadays loads cloud store not real time database. We need to switch to real time and apply the correct rules.
